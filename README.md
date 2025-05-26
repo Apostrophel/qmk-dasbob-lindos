@@ -2,24 +2,88 @@
 This is my custom 3x6, 3 thumb cluster split keyboard layout.
 
 ## Layout
-This layout uses home row mods in the GASC order, Mod-tap for the three thumb cluster buttons, and combos for various brackets.
+This layout uses home row mods in the GASC (GUI, ALT, Shift, Control) order, Mod-tap for the three thumb cluster buttons, and combos for various brackets.
 Its a pretty efficient layout, minimising number of layers to keep track of. 
 
-    Tap:                                                        Hold:                                                                                                                                     
+### Layers 
+Other than the base layer with home row mods, there is the symbols/numbers layer (NUM) and the navigation layer (NAV).
+
+### Abbreviations
+SPC - Space
+BSP - Back Space
+psc - print screen
+p.u - page up
+p.d - page down
+c.w - caps word
+hom - home 
+
+ 
+#### Base layer (BASE)
+    Tap:                                                        Hold: 
        ┌───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┐           ┌───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┐
        │ Q │ W │ E │ R │ T │       │ Y │ U │ I │ O │ P │           │   │   │   │   │   │       │   │   │   │   │   │
        ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤           ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
-       │ A │ S │ D │ F │ G │       │ H │ J │ K │ L │ : │           │Alt│Alt│   │   │   │       │   │   │   │   │   │
+       │ A │ S │ D │ F │ G │       │ H │ J │ K │ L │ : │           │GUI│ALT│SHF│CTR│   │       │   │CTR│SHF│ALT│GUI│
        ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤           ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
        │ Z │ X │ C │ V │ B │       │ N │ M │ , │ . │ _ │           │   │   │   │   │   │       │   │   │   │   │   │
        └───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┘           └───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┘
                  ┌───┐                   ┌───┐                               ┌───┐                   ┌───┐
                  │ESC├───┐           ┌───┤DEL│                               │   ├───┐           ┌───┤   │
-                 └───┤SPC├───┐   ┌───┤BSP├───┘                               └───┤   ├───┐   ┌───┤   ├───┘
-                     └───│TAB│   │RET├───┘                                       └───│   │   │   ├───┘
+                 └───┤SPC├───┐   ┌───┤BSP├───┘                               └───┤SYM├───┐   ┌───┤SYM├───┘
+                     └───│TAB│   │RET├───┘                                       └───│NAV│   │NAV├───┘
                          └───┘   └───┘                                               └───┘   └───┘
-      
-### Layers 
-Other than the base layer with home row mods, there is the symbols/numbers layer (NUM) and the navigation layer (NAV).
 
+##### Combo mappings for brackets
+| Left Hand | Symbol | Right Hand | Symbol |
+|-----------|--------|------------|--------|
+| `d + f`   | `"`    | `j + k`    | `'`    |
+| `s + f`   | `(`    | `j + l`    | `)`    |
+| `a + f`   | `/`    | `j + :`    | `\`    |
+| `x + v`   | `{`    | `m + .`    | `}`    |
+| `w + r`   | `[`    | `u + o`    | `]`    |
+
+#### Symbol numeric layer (SYM)
+    Tap:                                                        Hold:
+       ┌───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┐           ┌───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┐
+       │ESC│   │ | │ ^ │ < │       │ > │ 7 │ 8 │ 9 │ ` │           │   │   │   │   │   │       │   │   │   │   │   │
+       ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤           ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
+       │ # │ % │ - │ + │ = │       │ 0 │ 4 │ 5 │ 6 │ $ │           │GUI│ALT│SHF│CTR│   │       │   │CTR│SHF│ALT│GUI│
+       ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤           ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
+       │c.w│ & │ ? │ ! │ * │       │ ~ │ 1 │ 2 │ 3 │ @ │           │   │   │   │   │   │       │   │   │   │   │   │
+       └───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┘           └───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┘
+                 ┌───┐                   ┌───┐                               ┌───┐                   ┌───┐
+                 │ESC├───┐           ┌───┤DEL│                               │   ├───┐           ┌───┤   │
+                 └───┤SPC├───┐   ┌───┤BSP├───┘                               └───┤FUN├───┐   ┌───┤FUN├───┘
+                     └───│TAB│   │RET├───┘                                       └───│NAV│   │NAV├───┘
+                         └───┘   └───┘                                               └───┘   └───┘
+
+#### Navigation layer (NAV)
+    Tap:                                                       Hold:                                                                                                                                                         
+       ┌───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┐          ┌───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┐
+       │   │   │   │   │   │       │hom│p.u│p.d│end│   │          │   │   │   │   │   │       │   │   │   │   │   │
+       ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤          ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
+       │   │   │   │   │   │       │ ← │ ↑ │ ↓ │ → │   │          │   │   │   │   │   │       │   │   │   │   │   │
+       ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤          ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
+       │   │   │   │   │psc│       │psc│   │   │   │   │          │   │   │   │   │   │       │   │   │   │   │   │
+       └───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┘          └───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┘
+                 ┌───┐                   ┌───┐                              ┌───┐                   ┌───┐          
+                 │ESC├───┐           ┌───┤DEL│                              │   ├───┐           ┌───┤   │          
+                 └───┤SPC├───┐   ┌───┤BSP├───┘                              └───┤   ├───┐   ┌───┤   ├───┘          
+                     └───│TAB│   │RET├───┘                                      └───│   │   │   ├───┘              
+                         └───┘   └───┘                                              └───┘   └───┘                  
+
+#### Function layer (FUN)
+    Tap:                                                
+       ┌───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┐
+       │   │   │   │   │   │       │   │F7 │F8 │F9 │F10│
+       ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
+       │   │   │   │   │   │       │   │F4 │F5 │F6 │F11│
+       ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
+       │   │   │   │   │   │       │   │F1 │F2 │F3 │F12│
+       └───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┘
+                 ┌───┐                   ┌───┐          
+                 │ESC├───┐           ┌───┤DEL│          
+                 └───┤SPC├───┐   ┌───┤BSP├───┘          
+                     └───│TAB│   │RET├───┘              
+                         └───┘   └───┘                  
 
