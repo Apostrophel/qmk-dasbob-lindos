@@ -3,6 +3,9 @@
 
 #pragma once
 
+//Enable Combos
+#define COMBO_COUNT 3 //10
+
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 5
 

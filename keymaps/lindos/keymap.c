@@ -7,6 +7,73 @@ enum dasbob_layers {
   FUN
 };
 
+// Custom keycodes for mod-tap compatibility
+enum custom_keycodes {
+    SYM_HASH = SAFE_RANGE,  // #
+    SYM_PERC,               // %
+    SYM_DLR,
+    SYM_PLUS,               // +
+};
+
+// Clean symbol definitions - much more readable!
+#define SYM_EXLM S(KC_1)    // !
+#define SYM_AT   S(KC_2)    // @
+//#define SYM_HASH S(KC_3)    // #
+//#define SYM_DLR  S(KC_4)    // $
+//#define SYM_PERC S(KC_5)    // %
+#define SYM_CIRC S(KC_6)    // ^
+#define SYM_AMPR S(KC_7)    // &
+#define SYM_ASTR S(KC_8)    // *
+#define SYM_LPRN S(KC_9)    // (
+#define SYM_RPRN S(KC_0)    // )
+#define SYM_MINS KC_MINS    // -
+#define SYM_UNDR S(KC_MINS) // _
+#define SYM_EQL  KC_EQL     // =
+//#define SYM_PLUS S(KC_EQL)  // +
+#define SYM_LBRC KC_LBRC    // [
+#define SYM_RBRC KC_RBRC    // ]
+#define SYM_LCBR S(KC_LBRC) // {
+#define SYM_RCBR S(KC_RBRC) // }
+#define SYM_BSLS KC_BSLS    //  backslash
+#define SYM_PIPE S(KC_BSLS) // |
+#define SYM_SCLN KC_SCLN    // ;
+#define SYM_COLN S(KC_SCLN) // :
+#define SYM_QUOT KC_QUOT    // '
+#define SYM_DQUO S(KC_QUOT) // "
+#define SYM_COMM KC_COMM    // ,
+#define SYM_LT   S(KC_COMM) // <
+#define SYM_DOT  KC_DOT     // .
+#define SYM_GT   S(KC_DOT)  // >
+#define SYM_SLSH KC_SLSH    // /
+#define SYM_QUES S(KC_SLSH) // ?
+#define SYM_GRV  KC_GRV     // `
+#define SYM_TILD S(KC_GRV)  // ~
+
+// Process custom keycodes
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case SYM_HASH:
+            if (record->event.pressed) {
+                SEND_STRING("#");
+            }
+            return false;
+        case SYM_PERC:
+            if (record->event.pressed) {
+                SEND_STRING("%");
+            }
+            return false;
+        case SYM_PLUS:
+            if (record->event.pressed) {
+                SEND_STRING("+");
+            }
+            return false;
+        case SYM_DLR:
+            if (record->event.pressed) {
+                SEND_STRING("$");
+            }
+    }
+    return true;
+}
 // Custom macros for shorter keycode mapping
 #define G_A LGUI_T(KC_A)    // Gui key when held, A when pressed
 #define G_C RGUI_T(KC_SCLN) // Gui key when held, : when pressed
@@ -18,14 +85,14 @@ enum dasbob_layers {
 #define C_J RCTL_T(KC_J)    // Control key when held, J when pressed
 
 // Symbol layer hold taps
-#define G_H LGUI_T(KC_HASH) // Gui key when held, # when pressed
-#define G_D RGUI_T(KC_DLR)  // Gui key when held, $ when pressed
-#define A_P LALT_T(KC_PERC) // ALT key when held, % when pressed
-#define A_6 RALT_T(KC_6)    // ALT key when held, 6 when pressed
-#define S_M LSFT_T(KC_MINS) // SHIFT key when held, - when pressed
-#define S_5 RSFT_T(KC_5)    // SHIFT key when held, 5 when pressed
-#define C_P LCTL_T(KC_PLUS) // Control key when held, + when pressed
-#define C_4 RCTL_T(KC_4)    // Control key when held, 4 when pressed
+#define G_H LGUI_T(SYM_HASH)    // Gui when held, # when pressed
+#define G_D RGUI_T(SYM_DLR)     // Gui when held, $ when pressed
+#define A_P LALT_T(SYM_PERC)    // ALT when held, % when pressed
+#define A_6 RALT_T(KC_6)        // ALT when held, 6 when pressed
+#define S_M LSFT_T(SYM_MINS)    // SHIFT when held, - when pressed
+#define S_5 RSFT_T(KC_5)        // SHIFT when held, 5 when pressed
+#define C_P LCTL_T(SYM_PLUS)    // Control when held, + when pressed
+#define C_4 RCTL_T(KC_4)        // Control when held, 4 when pressed
 
 // Layer macros
 #define SYM_SPC LT(SYM, KC_SPC)    // Layer 1 when held, Space when tapped
@@ -35,20 +102,30 @@ enum dasbob_layers {
 #define FUN_ESC LT(FUN, KC_ESC)    // Layer 1 when held, Space when tapped
 #define FUN_DEL LT(FUN, KC_DEL)    // Layer 1 when held, Space when tapped
 
+const uint16_t PROGMEM open_parentasis[] = {KC_S, KC_F, COMBO_END};
+const uint16_t PROGMEM close_parentasis[] = {KC_J, KC_L, COMBO_END};
+const uint16_t PROGMEM open_bracket[] = {KC_W, KC_R, COMBO_END};
+
+combo_t key_combos[] = {
+    COMBO(open_parentasis, KC_LEFT_PAREN),
+    COMBO(close_parentasis, KC_RIGHT_PAREN),
+    COMBO(open_bracket, KC_LEFT_BRACKET),
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
-      * ┌───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┐
-      * │ Q │ W │ E │ R │ T │       │ Y │ U │ I │ O │ P │
-      * ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
-      * │ A │ S │ D │ F │ G │       │ H │ J │ K │ L │ : │
-      * ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
-      * │ Z │ X │ C │ V │ B │       │ N │ M │ , │ . │ _ │
-      * └───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┘
-      *           ┌───┐                   ┌───┐
-      *           │ESC├───┐           ┌───┤DEL│
-      *           └───┤SPC├───┐   ┌───┤BSP├───┘
-      *               └───│TAB│   │RET├───┘
-      *                   └───┘   └───┘
+      * ┌───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┐     ┌───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┐
+      * │ Q │ W │ E │ R │ T │       │ Y │ U │ I │ O │ P │     │   │ @ │ | │ ^ │ < │       │ > │ 7 │ 8 │ 9 │ ` │
+      * ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤     ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
+      * │ A │ S │ D │ F │ G │       │ H │ J │ K │ L │ : │     │ # │ % │ - │ + │ = │       │ 0 │ 4 │ 5 │ 6 │ $ │
+      * ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤     ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
+      * │ Z │ X │ C │ V │ B │       │ N │ M │ , │ . │ _ │     │c.w│ & │ ? │ ! │ * │       │ ~ │ 1 │ 2 │ 3 │ . │
+      * └───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┘     └───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┘
+      *           ┌───┐                   ┌───┐                         ┌───┐                   ┌───┐
+      *           │ESC├───┐           ┌───┤DEL│                         │ESC├───┐           ┌───┤DEL│
+      *           └───┤SPC├───┐   ┌───┤BSP├───┘                         └───┤SPC├───┐   ┌───┤BSP├───┘
+      *               └───│TAB│   │RET├───┘                                 └───│TAB│   │RET├───┘
+      *                   └───┘   └───┘                                         └───┘   └───┘
       */
 
 
@@ -60,12 +137,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [SYM] = LAYOUT_split_3x5_3(
-       KC_NO,  KC_NO,    KC_PIPE,   KC_CIRC,    KC_LT,          KC_GT,      KC_7,       KC_8,   KC_9,   KC_GRV,
-       G_H,     A_P,     S_M,       C_P,        KC_EQL,         KC_0,       C_4,        S_5,    A_6,    G_D,
-       CW_TOGG, KC_AMPR, KC_QUES,   KC_EXLM,    KC_ASTR,        KC_TILD,    KC_1,       KC_2,   KC_3,   KC_AT,
-                         FUN_ESC,   KC_SPC,     KC_TAB,         KC_ENT,     KC_BSPC,    FUN_DEL
+       SYM_AT,  SYM_TILD, SYM_PIPE, SYM_CIRC, SYM_LT,         SYM_GT,     KC_7,       KC_8,   KC_9,   SYM_GRV,
+       G_H,     A_P,      S_M,      C_P,      SYM_EQL,        KC_0,       C_4,        S_5,    A_6,    G_D,
+       CW_TOGG, SYM_AMPR, SYM_QUES, SYM_EXLM, SYM_ASTR,       SYM_DOT,   KC_1,       KC_2,   KC_3,   SYM_COMM,
+                            FUN_ESC,  KC_SPC,   KC_TAB,       KC_ENT,     KC_BSPC,    FUN_DEL
     ),
-
     [NAV] = LAYOUT_split_3x5_3(
         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,          KC_HOME, KC_PGDN, KC_PGUP,   KC_END, KC_NO,
         KC_LGUI,    KC_LALT,    KC_LSFT,    KC_LCTL,    KC_NO,          KC_LEFT, KC_DOWN, KC_UP,     KC_RGHT, KC_NO,
