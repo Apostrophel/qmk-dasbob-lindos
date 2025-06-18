@@ -4,7 +4,20 @@
 #pragma once
 
 //Enable Combos
-#define COMBO_COUNT 3 //10
+// #define COMBO_COUNT 3 //10
+// Combo timing settings
+#define COMBO_TERM 50
+#define COMBO_ALLOW_ACTION_KEY
+
+// Mod tap timing settings
+#define TAPPING_TERM 200
+// #define PERMISSIVE_HOLD
+// #define CHORDAL_HOLD //an "opposite hands" rule. the tap-hold key is settled as tapped if the two keys are on the same hand. https://docs.qmk.fm/tap_hold#chordal-hold-handedness
+// #define RETRO_TAPPING // will send the tap in stead of the hold if held for longer than tapping term then releases before no other keypress
+// #define FLOW_TAP_TERM 150
+// #define HOLD_ON_OTHER_KEY_PRESS
+// #define TAPPING_FORCE_HOLD
+
 
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 5
@@ -54,9 +67,6 @@
 // The default is 40
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 100
 
-// Pick good defaults for enabling homerow modifiers
-#define TAPPING_TERM 200
-#define PERMISSIVE_HOLD
 #define USB_VBUS_PIN 19
 #define AUDIO_PWM_DRIVER PWMD2
 #define AUDIO_PWM_CHANNEL RP2040_PWM_CHANNEL_B
