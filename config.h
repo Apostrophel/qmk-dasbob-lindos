@@ -3,14 +3,17 @@
 
 #pragma once
 
-//Enable Combos
-// #define COMBO_COUNT 3 //10
 // Combo timing settings
+#define COMBO_ONLY_FROM_LAYER 0
 #define COMBO_TERM 50
-#define COMBO_ALLOW_ACTION_KEY
-
+#define COMBO_ALLOW_ACTION_KEYS
+// #define COMBO_MUST_TAP
 // Mod tap timing settings
 #define TAPPING_TERM 200
+#define QUICK_TAP_TERM 150
+
+#define TAPPING_TERM_PER_KEY
+
 // #define PERMISSIVE_HOLD
 // #define CHORDAL_HOLD //an "opposite hands" rule. the tap-hold key is settled as tapped if the two keys are on the same hand. https://docs.qmk.fm/tap_hold#chordal-hold-handedness
 // #define RETRO_TAPPING // will send the tap in stead of the hold if held for longer than tapping term then releases before no other keypress

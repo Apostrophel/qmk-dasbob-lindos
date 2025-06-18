@@ -1,5 +1,8 @@
 #include QMK_KEYBOARD_H
 
+#include "keymap_norwegian.h"
+// #include "send_string.h"
+
 enum dasbob_layers {
   BASE,
   SYM,
@@ -76,7 +79,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 // Custom macros for shorter keycode mapping
 #define G_A LGUI_T(KC_A)    // Gui key when held, A when pressed
-#define G_C RGUI_T(KC_SCLN) // Gui key when held, : when pressed
+#define G_C LGUI_T(SYM_COLN) // Gui key when held, : when pressed
 #define A_S LALT_T(KC_S)    // ALT key when held, S when pressed
 #define A_L RALT_T(KC_L)    // ALT key when held, L when pressed
 #define S_D LSFT_T(KC_D)    // SHIFT key when held, D when pressed
@@ -86,7 +89,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // Symbol layer hold taps
 #define G_H LGUI_T(SYM_HASH)    // Gui when held, # when pressed
-#define G_D RGUI_T(SYM_DLR)     // Gui when held, $ when pressed
+#define G_D LGUI_T(SYM_DLR)     // Gui when held, $ when pressed
 #define A_P LALT_T(SYM_PERC)    // ALT when held, % when pressed
 #define A_6 RALT_T(KC_6)        // ALT when held, 6 when pressed
 #define S_M LSFT_T(SYM_MINS)    // SHIFT when held, - when pressed
@@ -95,22 +98,61 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #define C_4 RCTL_T(KC_4)        // Control when held, 4 when pressed
 
 // Layer macros
-#define SYM_SPC LT(SYM, KC_SPC)    // Layer 1 when held, Space when tapped
-#define SYM_BSPC LT(SYM, KC_BSPC)    // Layer 1 when held, Space when tapped
-#define NAV_TAB LT(NAV, KC_TAB)    // Layer 1 when held, Space when tapped
-#define NAV_ENT LT(NAV, KC_ENT)    // Layer 1 when held, Space when tapped
-#define FUN_ESC LT(FUN, KC_ESC)    // Layer 1 when held, Space when tapped
-#define FUN_DEL LT(FUN, KC_DEL)    // Layer 1 when held, Space when tapped
+#define SYM_SPC LT(SYM, KC_SPC)    // Symbol layer when held, Space when tapped
+#define SYM_BSPC LT(SYM, KC_BSPC)  // Symbol layer when held, Backspace when tapped
+#define NAV_TAB LT(NAV, KC_TAB)    // Navigation layer when held, tab when tapped
+#define NAV_ENT LT(NAV, KC_ENT)    // Navigation layer when held, enter when tapped
+#define FUN_ESC LT(FUN, KC_ESC)    // Function layer when held, escape when tapped
+#define FUN_DEL LT(FUN, KC_DEL)    // Function layer when held, delete when tapped
 
-const uint16_t PROGMEM open_parentasis[] = {KC_S, KC_F, COMBO_END};
-const uint16_t PROGMEM close_parentasis[] = {KC_J, KC_L, COMBO_END};
+const uint16_t PROGMEM open_parentasis[] = {A_S, C_F, COMBO_END};
+const uint16_t PROGMEM close_parentasis[] = {C_J, A_L, COMBO_END};
 const uint16_t PROGMEM open_bracket[] = {KC_W, KC_R, COMBO_END};
+const uint16_t PROGMEM close_bracket[] = {KC_U, KC_O, COMBO_END};
+const uint16_t PROGMEM open_curl_bracket[] = {KC_X, KC_V, COMBO_END};
+const uint16_t PROGMEM close_curl_bracket[] = {KC_M, KC_DOT, COMBO_END};
+const uint16_t PROGMEM double_quote[] = {S_D, C_F, COMBO_END};
+const uint16_t PROGMEM single_quote[] = {C_J, S_K, COMBO_END};
+const uint16_t PROGMEM forward_slash[] = {G_A, C_F, COMBO_END};
+const uint16_t PROGMEM back_slash[] = {C_J, G_C, COMBO_END};
 
 combo_t key_combos[] = {
-    COMBO(open_parentasis, KC_LEFT_PAREN),
-    COMBO(close_parentasis, KC_RIGHT_PAREN),
-    COMBO(open_bracket, KC_LEFT_BRACKET),
+    COMBO(open_parentasis, SYM_LPRN),
+    COMBO(close_parentasis, SYM_RPRN),
+    COMBO(open_bracket, SYM_LBRC),
+    COMBO(close_bracket, SYM_RBRC),
+    COMBO(open_curl_bracket, SYM_LCBR),
+    COMBO(close_curl_bracket,SYM_RCBR),
+    COMBO(double_quote, SYM_DQUO),
+    COMBO(single_quote, SYM_QUOT),
+    COMBO(back_slash, SYM_BSLS),
+    COMBO(forward_slash, SYM_SLSH)
 };
+const key_override_t colon_to_semi = ko_make_basic(MOD_MASK_SHIFT, SYM_COLN, SYM_SCLN);
+
+const key_override_t *key_overrides[] = {
+    &colon_to_semi
+};
+
+// Set per key tapping term and flavour. keycodes set to return true, will have hold-preferred, false is tap-preferred
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case SYM_SPC:
+            return true;
+        case SYM_BSPC:
+            return true;
+        case NAV_TAB:
+            return true;
+        case NAV_ENT:
+            return true;
+        case FUN_ESC:
+            return true;
+        case FUN_DEL:
+            return true;
+        default:
+            return false;
+    }
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
@@ -130,17 +172,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
     [BASE] = LAYOUT_split_3x5_3(
-        KC_Q,   KC_W,   KC_E,   KC_R,    KC_T,          KC_Y,       KC_U,       KC_I,       KC_O,   KC_P,
-        G_A,    A_S,    S_D,    C_F,     KC_G,          KC_H,       C_J,        S_K,        A_L,    G_C,
-        KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,          KC_N,       KC_M,       KC_COMM,    KC_DOT, KC_SLSH,
+        KC_Q,   KC_W,   KC_E,   KC_R,    KC_T,          KC_Y,       KC_U,       KC_I,       KC_O,    KC_P,
+        G_A,    A_S,    S_D,    C_F,     KC_G,          KC_H,       C_J,        S_K,        A_L,     SYM_COLN,
+        KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,          KC_N,       KC_M,       SYM_COMM,   SYM_DOT, KC_MINS,
                         KC_ESC, SYM_SPC, NAV_TAB,       NAV_ENT,    SYM_BSPC,   KC_DEL
     ),
 
     [SYM] = LAYOUT_split_3x5_3(
-       SYM_AT,  SYM_TILD, SYM_PIPE, SYM_CIRC, SYM_LT,         SYM_GT,     KC_7,       KC_8,   KC_9,   SYM_GRV,
-       G_H,     A_P,      S_M,      C_P,      SYM_EQL,        KC_0,       C_4,        S_5,    A_6,    G_D,
-       CW_TOGG, SYM_AMPR, SYM_QUES, SYM_EXLM, SYM_ASTR,       SYM_DOT,   KC_1,       KC_2,   KC_3,   SYM_COMM,
-                            FUN_ESC,  KC_SPC,   KC_TAB,       KC_ENT,     KC_BSPC,    FUN_DEL
+       SYM_AT,   SYM_TILD, SYM_PIPE, SYM_CIRC, SYM_LT,         SYM_GT,     KC_7,       KC_8,   KC_9,   SYM_GRV,
+       SYM_HASH, SYM_PERC, SYM_MINS, SYM_PLUS, SYM_EQL,        KC_0,       C_4,        S_5,    A_6,    SYM_DLR,
+       CW_TOGG,  SYM_AMPR, SYM_QUES, SYM_EXLM, SYM_ASTR,       SYM_DOT,    KC_1,       KC_2,   KC_3,   SYM_COMM,
+                            FUN_ESC,  KC_SPC,   KC_TAB,        KC_ENT,     KC_BSPC,    FUN_DEL
     ),
     [NAV] = LAYOUT_split_3x5_3(
         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,          KC_HOME, KC_PGDN, KC_PGUP,   KC_END, KC_NO,
@@ -150,7 +192,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [FUN] = LAYOUT_split_3x5_3(
-        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,          KC_NO,  KC_F7, KC_F8, KC_F9, KC_F10,
+        KC_NO,      NO_ARNG,      NO_OSTR,      NO_AE,      KC_NO,          KC_NO,  KC_F7, KC_F8, KC_F9, KC_F10,
         KC_LGUI,    KC_LALT,    KC_LSFT,    KC_LCTL,    KC_NO,          KC_NO,  KC_F4, KC_F5, KC_F6, KC_F11,
         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,          KC_NO,  KC_F1, KC_F2, KC_F3, KC_F12,
                                 KC_ESC,     KC_SPC,     KC_TAB,         KC_ENT, KC_BSPC, KC_DEL
