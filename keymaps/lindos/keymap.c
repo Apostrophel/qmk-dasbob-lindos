@@ -128,11 +128,25 @@ combo_t key_combos[] = {
     COMBO(back_slash, SYM_BSLS),
     COMBO(forward_slash, SYM_SLSH)
 };
+
 const key_override_t colon_to_semi = ko_make_basic(MOD_MASK_SHIFT, SYM_COLN, SYM_SCLN);
+const key_override_t space_to_backspace = ko_make_basic(MOD_MASK_SHIFT, SYM_SPC, KC_BSPC);
+const key_override_t open_to_close_parentasis = ko_make_basic(MOD_MASK_SHIFT, SYM_RPRN, SYM_LPRN);
+const key_override_t open_to_close_bracket = ko_make_basic(MOD_MASK_SHIFT, SYM_LBRC, SYM_RBRC);
+const key_override_t open_to_close_curl = ko_make_basic(MOD_MASK_SHIFT, SYM_LCBR, SYM_RCBR);
+const key_override_t double_to_single_quote = ko_make_basic(MOD_MASK_SHIFT, SYM_DQUO, SYM_QUOT);
+
 
 const key_override_t *key_overrides[] = {
-    &colon_to_semi
+    &space_to_backspace,
+    &colon_to_semi,
+    &open_to_close_parentasis,
+    &open_to_close_curl,
+    &open_to_close_bracket,
+    &double_to_single_quote
 };
+
+
 
 // Set per key tapping term and flavour. keycodes set to return true, will have hold-preferred, false is tap-preferred
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
@@ -175,14 +189,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Q,   KC_W,   KC_E,   KC_R,    KC_T,          KC_Y,       KC_U,       KC_I,       KC_O,    KC_P,
         G_A,    A_S,    S_D,    C_F,     KC_G,          KC_H,       C_J,        S_K,        A_L,     SYM_COLN,
         KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,          KC_N,       KC_M,       SYM_COMM,   SYM_DOT, KC_MINS,
-                        KC_ESC, SYM_SPC, NAV_TAB,       NAV_ENT,    SYM_BSPC,   KC_DEL
+                        FUN_ESC, SYM_SPC, NAV_TAB,      NAV_ENT,    SYM_BSPC,   FUN_DEL
     ),
 
     [SYM] = LAYOUT_split_3x5_3(
        SYM_AT,   SYM_TILD, SYM_PIPE, SYM_CIRC, SYM_LT,         SYM_GT,     KC_7,       KC_8,   KC_9,   SYM_GRV,
        SYM_HASH, SYM_PERC, SYM_MINS, SYM_PLUS, SYM_EQL,        KC_0,       C_4,        S_5,    A_6,    SYM_DLR,
        CW_TOGG,  SYM_AMPR, SYM_QUES, SYM_EXLM, SYM_ASTR,       SYM_DOT,    KC_1,       KC_2,   KC_3,   SYM_COMM,
-                            FUN_ESC,  KC_SPC,   KC_TAB,        KC_ENT,     KC_BSPC,    FUN_DEL
+                            KC_ESC,  KC_SPC,   KC_TAB,         KC_ENT,     KC_BSPC,    KC_DEL
     ),
     [NAV] = LAYOUT_split_3x5_3(
         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,          KC_HOME, KC_PGDN, KC_PGUP,   KC_END, KC_NO,
