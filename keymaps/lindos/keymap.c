@@ -114,7 +114,7 @@ const uint16_t PROGMEM close_curl_bracket[] = {KC_M, KC_DOT, COMBO_END};
 const uint16_t PROGMEM double_quote[] = {S_D, C_F, COMBO_END};
 const uint16_t PROGMEM single_quote[] = {C_J, S_K, COMBO_END};
 const uint16_t PROGMEM forward_slash[] = {G_A, C_F, COMBO_END};
-const uint16_t PROGMEM back_slash[] = {C_J, G_C, COMBO_END};
+const uint16_t PROGMEM back_slash[] = {C_J, SYM_COLN, COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(open_parentasis, SYM_LPRN),
