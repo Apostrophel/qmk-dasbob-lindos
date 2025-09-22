@@ -231,15 +231,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             KC_ESC,  KC_SPC,   KC_TAB,         KC_ENT,     KC_BSPC,    KC_DEL
     ),
     [NAV] = LAYOUT_split_3x5_3(
-        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,          KC_HOME, KC_PGDN, KC_PGUP,   KC_END, KC_NO,
-        KC_LGUI,    KC_LALT,    KC_LSFT,    KC_LCTL,    KC_NO,          KC_LEFT, KC_DOWN, KC_UP,     KC_RGHT, KC_NO,
-        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_PSCR,        KC_PSCR, KC_NO,   KC_NO,     KC_NO,   KC_NO,
-                                KC_ESC,     KC_SPC,     KC_TAB,         KC_ENT,  KC_BSPC, KC_DEL
+        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_KB_VOLUME_UP,     KC_HOME, KC_PGDN, KC_PGUP,   KC_END, KC_NO,
+        KC_LGUI,    KC_LALT,    KC_LSFT,    KC_LCTL,    KC_KB_VOLUME_DOWN,   KC_LEFT, KC_DOWN, KC_UP,     KC_RGHT, KC_NO,
+        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_KB_MUTE,          KC_PSCR, KC_NO,   KC_NO,     KC_NO,   KC_NO,
+                                KC_ESC,     KC_SPC,     KC_TAB,              KC_ENT,  KC_BSPC, KC_DEL
     ),
 
     [FUN] = LAYOUT_split_3x5_3(
         KC_NO,      KC_NO,      NO_AE,       NO_OE,       KC_NO,          KC_NO,  KC_F7, KC_F8, KC_F9, KC_F10,
-        NO_AA,      KC_NO,      CTRL_MINUS, CTRL_PLUS,    KC_NO,          KC_NO,  KC_F4, KC_F5, KC_F6, KC_F11,
+        NO_AA,      KC_NO,      CTRL_MINUS, CTRL_PLUS,    LALT(KC_F4),    KC_NO,  KC_F4, KC_F5, KC_F6, KC_F11,
         KC_NO,      KC_NO,      KC_NO,       KC_NO,       UC_NEXT,        KC_NO,  KC_F1, KC_F2, KC_F3, KC_F12,
                                 KC_ESC,      KC_SPC,      KC_TAB,         KC_ENT, KC_BSPC, KC_DEL
     ),
