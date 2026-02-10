@@ -1,6 +1,22 @@
 # DASBOB - Lindos Layout
 This is my custom 3x6, 3 thumb cluster split keyboard layout.
 
+## Compilation guide
+To compile this keyboard layout, first install QMK locally: https://docs.qmk.fm/newbs_getting_started
+Then, navigate to the `qmk_firmware/keyboards/` directory and clone this repository. 
+```
+cd ~/qmk_firmware/keyboards/ 
+clone https://github.com/Apostrophel/qmk-dasbob-lindos dasbob
+```
+Check if QMK recognizes the new keyboard/layout with `qmk list-keyboards | grep dasbob`.
+
+Complile the layout:
+```
+qmk compile -kb dasbob -km lindos
+```
+
+Now you can enter bootloader mode with the keyboard (double press reset button) and flash (drag and drop the compiled file)!
+
 ## Layout
 This layout uses home row mods in the GASC (GUI, ALT, Shift, Control) order, Mod-tap for the three thumb cluster buttons, and combos for various brackets.
 Its a pretty efficient layout, minimising number of layers to keep track of. 
