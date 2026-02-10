@@ -83,3 +83,9 @@
 #endif
 
 #define STARTUP_SOUND E__NOTE(_E6), E__NOTE(_A6), ED_NOTE(_E7),
+
+
+// Define unicode support for norwegian characters
+#define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_MACOS, UNICODE_MODE_LINUX
+#define UNICODE_CYCLE_PERSIST true  // Remember mode across reboots
+#define UNICODE_TYPE_DELAY 10       // Adjust for system performance

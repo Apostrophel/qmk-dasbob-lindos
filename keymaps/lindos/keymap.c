@@ -1,7 +1,19 @@
 #include QMK_KEYBOARD_H
 
-#include "keymap_norwegian.h"
+//#include "keymap_norwegian.h"
 // #include "send_string.h"
+// Custom keycodes for mod-tap compatibility and for norwegian letters
+enum custom_keycodes {
+    SYM_HASH = SAFE_RANGE,  // #
+    SYM_PERC,               // %
+    SYM_DLR,                // $
+    SYM_PLUS,               // +
+    NO_AE,                  // æ/Æ
+    NO_OE,                  // ø/Ø
+    NO_AA,                  // å/Å
+    CTRL_PLUS,
+    CTRL_MINUS,
+};
 
 enum dasbob_layers {
   BASE,
@@ -10,15 +22,7 @@ enum dasbob_layers {
   FUN
 };
 
-// Custom keycodes for mod-tap compatibility
-enum custom_keycodes {
-    SYM_HASH = SAFE_RANGE,  // #
-    SYM_PERC,               // %
-    SYM_DLR,
-    SYM_PLUS,               // +
-};
-
-// Clean symbol definitions - much more readable!
+// symbol definitions
 #define SYM_EXLM S(KC_1)    // !
 #define SYM_AT   S(KC_2)    // @
 //#define SYM_HASH S(KC_3)    // #
@@ -74,9 +78,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 SEND_STRING("$");
             }
+            return false;
+        case NO_AE:
+            if (record->event.pressed) {
+                send_unicode_string(get_mods() & MOD_MASK_SHIFT ? "Æ" : "æ");
+            }
+            return false;
+        case NO_OE:
+            if (record->event.pressed){
+                send_unicode_string(get_mods() & MOD_MASK_SHIFT ? "Ø" : "ø");
+
+            }
+            return false;
+        case NO_AA:
+            if (record->event.pressed){
+                send_unicode_string(get_mods() & MOD_MASK_SHIFT ? "Å" : "å");
+            }
+            return false;
+        case CTRL_PLUS:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_EQUAL)))); // Ctrl + Shift + =
+            }
+            return false;
+        case CTRL_MINUS:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL(SS_TAP(X_MINUS))); // Ctrl + -
+            }
+            return false;
     }
     return true;
 }
+
 // Custom macros for shorter keycode mapping
 #define G_A LGUI_T(KC_A)    // Gui key when held, A when pressed
 #define G_C LGUI_T(SYM_COLN) // Gui key when held, : when pressed
@@ -199,17 +231,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             KC_ESC,  KC_SPC,   KC_TAB,         KC_ENT,     KC_BSPC,    KC_DEL
     ),
     [NAV] = LAYOUT_split_3x5_3(
-        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,          KC_HOME, KC_PGDN, KC_PGUP,   KC_END, KC_NO,
-        KC_LGUI,    KC_LALT,    KC_LSFT,    KC_LCTL,    KC_NO,          KC_LEFT, KC_DOWN, KC_UP,     KC_RGHT, KC_NO,
-        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_PSCR,        KC_PSCR, KC_NO,   KC_NO,     KC_NO,   KC_NO,
-                                KC_ESC,     KC_SPC,     KC_TAB,         KC_ENT,  KC_BSPC, KC_DEL
+        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_KB_VOLUME_UP,     KC_HOME, KC_PGDN, KC_PGUP,   KC_END, KC_NO,
+        KC_LGUI,    KC_LALT,    KC_LSFT,    KC_LCTL,    KC_KB_VOLUME_DOWN,   KC_LEFT, KC_DOWN, KC_UP,     KC_RGHT, KC_NO,
+        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_KB_MUTE,          KC_PSCR, KC_NO,   KC_NO,     KC_NO,   KC_NO,
+                                KC_ESC,     KC_SPC,     KC_TAB,              KC_ENT,  KC_BSPC, KC_DEL
     ),
 
     [FUN] = LAYOUT_split_3x5_3(
-        KC_NO,      NO_ARNG,      NO_OSTR,      NO_AE,      KC_NO,          KC_NO,  KC_F7, KC_F8, KC_F9, KC_F10,
-        KC_LGUI,    KC_LALT,    KC_LSFT,    KC_LCTL,    KC_NO,          KC_NO,  KC_F4, KC_F5, KC_F6, KC_F11,
-        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,          KC_NO,  KC_F1, KC_F2, KC_F3, KC_F12,
-                                KC_ESC,     KC_SPC,     KC_TAB,         KC_ENT, KC_BSPC, KC_DEL
+        KC_NO,      KC_NO,      NO_AE,       NO_OE,       KC_NO,          KC_NO,  KC_F7, KC_F8, KC_F9, KC_F10,
+        NO_AA,      KC_NO,      CTRL_MINUS, CTRL_PLUS,    LALT(KC_F4),    KC_NO,  KC_F4, KC_F5, KC_F6, KC_F11,
+        KC_NO,      KC_NO,      KC_NO,       KC_NO,       UC_NEXT,        KC_NO,  KC_F1, KC_F2, KC_F3, KC_F12,
+                                KC_ESC,      KC_SPC,      KC_TAB,         KC_ENT, KC_BSPC, KC_DEL
     ),
 
 
