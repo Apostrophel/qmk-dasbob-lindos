@@ -1,5 +1,6 @@
 # DASBOB - Lindos Layout
 This is my custom 3x6, 3 thumb cluster split keyboard layout. In this branch (knorwegian-layout), the keymap is designed for norwegian keyboard input language set on the OS. 
+For a little build log see [my website](https://sjur.dev/assets/projects/keyboards/).
 
 ## Compilation guide
 To compile this keyboard layout, first install QMK locally: https://docs.qmk.fm/newbs_getting_started
