@@ -1,16 +1,15 @@
 #include QMK_KEYBOARD_H
-
-//#include "keymap_norwegian.h"
-// #include "send_string.h"
+#include "keymap_norwegian.h"
+#include "sendstring_norwegian.h"
 // Custom keycodes for mod-tap compatibility and for norwegian letters
 enum custom_keycodes {
     SYM_HASH = SAFE_RANGE,  // #
     SYM_PERC,               // %
     SYM_DLR,                // $
     SYM_PLUS,               // +
-    NO_AE,                  // æ/Æ
-    NO_OE,                  // ø/Ø
-    NO_AA,                  // å/Å
+    // NO_AE,                  // æ/Æ
+    // NO_OE,                  // ø/Ø
+    // NO_AA,                  // å/Å
     CTRL_PLUS,
     CTRL_MINUS,
 };
@@ -23,38 +22,42 @@ enum dasbob_layers {
 };
 
 // symbol definitions
-#define SYM_EXLM S(KC_1)    // !
-#define SYM_AT   S(KC_2)    // @
+#define SYM_EXLM NO_EXLM//S(KC_1)    // !
+#define SYM_AT   NO_AT//S(KC_2)    // @
 //#define SYM_HASH S(KC_3)    // #
 //#define SYM_DLR  S(KC_4)    // $
 //#define SYM_PERC S(KC_5)    // %
-#define SYM_CIRC S(KC_6)    // ^
-#define SYM_AMPR S(KC_7)    // &
-#define SYM_ASTR S(KC_8)    // *
-#define SYM_LPRN S(KC_9)    // (
-#define SYM_RPRN S(KC_0)    // )
-#define SYM_MINS KC_MINS    // -
-#define SYM_UNDR S(KC_MINS) // _
-#define SYM_EQL  KC_EQL     // =
+#define SYM_CIRC NO_CIRC//S(KC_6)    // ^
+#define SYM_AMPR NO_AMPR//S(KC_7)    // &
+#define SYM_ASTR NO_ASTR//S(KC_8)    // *
+#define SYM_LPRN NO_LPRN//S(KC_9)    // (
+#define SYM_RPRN NO_RPRN//S(KC_0)    // )
+#define SYM_MINS NO_MINS//KC_MINS    // -
+#define SYM_UNDR NO_UNDS//S(KC_MINS) // _
+#define SYM_EQL  NO_EQL//KC_EQL     // =
 //#define SYM_PLUS S(KC_EQL)  // +
-#define SYM_LBRC KC_LBRC    // [
-#define SYM_RBRC KC_RBRC    // ]
-#define SYM_LCBR S(KC_LBRC) // {
-#define SYM_RCBR S(KC_RBRC) // }
-#define SYM_BSLS KC_BSLS    //  backslash
-#define SYM_PIPE S(KC_BSLS) // |
-#define SYM_SCLN KC_SCLN    // ;
-#define SYM_COLN S(KC_SCLN) // :
-#define SYM_QUOT KC_QUOT    // '
-#define SYM_DQUO S(KC_QUOT) // "
-#define SYM_COMM KC_COMM    // ,
-#define SYM_LT   S(KC_COMM) // <
-#define SYM_DOT  KC_DOT     // .
-#define SYM_GT   S(KC_DOT)  // >
-#define SYM_SLSH KC_SLSH    // /
-#define SYM_QUES S(KC_SLSH) // ?
-#define SYM_GRV  KC_GRV     // `
-#define SYM_TILD S(KC_GRV)  // ~
+#define SYM_LBRC NO_LBRC//KC_LBRC    // [
+#define SYM_RBRC NO_RBRC//KC_RBRC    // ]
+#define SYM_LCBR NO_LCBR//S(KC_LBRC) // {
+#define SYM_RCBR NO_RCBR//S(KC_RBRC) // }
+#define SYM_BSLS NO_BSLS//KC_BSLS    //  backslash
+#define SYM_SLSH S(NO_7)             //  forward slash
+#define SYM_PIPE NO_PIPE//S(KC_BSLS) // |
+#define SYM_SCLN NO_SCLN//KC_SCLN    // ;
+#define SYM_COLN NO_COLN//S(KC_SCLN) // :
+#define SYM_QUOT NO_QUOT//KC_QUOT    // '
+#define SYM_DQUO NO_DQUO//S(KC_QUOT) // "
+#define SYM_COMM NO_COMM//KC_COMM    // ,
+#define SYM_LT   NO_LABK//S(KC_COMM) // <
+#define SYM_DOT  NO_DOT//KC_DOT     // .
+#define SYM_GT   NO_RABK//S(KC_DOT)  // >
+#define SYM_QUES NO_QUES//S(KC_SLSH) // ?
+#define SYM_GRV  NO_GRV//KC_GRV     // `
+#define SYM_TILD NO_TILD//S(KC_GRV)  // ~
+
+#define NO_AA NO_ARNG //AA
+#define NO_OO NO_OSTR //OO
+//#define NO_AE NO_AE //AE
 
 // Process custom keycodes
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -79,22 +82,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING("$");
             }
             return false;
-        case NO_AE:
-            if (record->event.pressed) {
-                send_unicode_string(get_mods() & MOD_MASK_SHIFT ? "Æ" : "æ");
-            }
-            return false;
-        case NO_OE:
-            if (record->event.pressed){
-                send_unicode_string(get_mods() & MOD_MASK_SHIFT ? "Ø" : "ø");
-
-            }
-            return false;
-        case NO_AA:
-            if (record->event.pressed){
-                send_unicode_string(get_mods() & MOD_MASK_SHIFT ? "Å" : "å");
-            }
-            return false;
+        // case NO_AE:
+        //     if (record->event.pressed) {
+        //         send_unicode_string(get_mods() & MOD_MASK_SHIFT ? "Æ" : "æ");
+        //     }
+        //     return false;
+        // case NO_OE:
+        //     if (record->event.pressed){
+        //         send_unicode_string(get_mods() & MOD_MASK_SHIFT ? "Ø" : "ø");
+        //
+        //     }
+        //     return false;
+        // case NO_AA:
+        //     if (record->event.pressed){
+        //         send_unicode_string(get_mods() & MOD_MASK_SHIFT ? "Å" : "å");
+        //     }
+        //     return false;
         case CTRL_PLUS:
             if (record->event.pressed) {
                 SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_EQUAL)))); // Ctrl + Shift + =
@@ -215,12 +218,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *               └───│TAB│   │RET├───┘                                 └───│NAV│   │NAV├───┘
       *                   └───┘   └───┘                                         └───┘   └───┘
       */
-  
+
 
     [BASE] = LAYOUT_split_3x5_3(
         KC_Q,   KC_W,   KC_E,   KC_R,    KC_T,          KC_Y,       KC_U,       KC_I,       KC_O,    KC_P,
         G_A,    A_S,    S_D,    C_F,     KC_G,          KC_H,       C_J,        S_K,        A_L,     SYM_COLN,
-        KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,          KC_N,       KC_M,       SYM_COMM,   SYM_DOT, KC_MINS,
+        KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,          KC_N,       KC_M,       SYM_COMM,   SYM_DOT, NO_MINS,//KC_MINS,
                         FUN_ESC, SYM_SPC, NAV_TAB,      NAV_ENT,    SYM_BSPC,   FUN_DEL
     ),
 
@@ -245,14 +248,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             KC_ESC,  KC_SPC,   KC_TAB,         KC_ENT,     KC_BSPC,    KC_DEL
     ),
     [NAV] = LAYOUT_split_3x5_3(
-        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_KB_VOLUME_UP,     KC_HOME, KC_PGDN, KC_PGUP,   KC_END, KC_NO,
-        KC_LGUI,    KC_LALT,    KC_LSFT,    KC_LCTL,    KC_KB_VOLUME_DOWN,   KC_LEFT, KC_DOWN, KC_UP,     KC_RGHT, KC_NO,
-        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_KB_MUTE,          KC_PSCR, KC_NO,   KC_NO,     KC_NO,   KC_NO,
+        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_KB_VOLUME_UP,     KC_HOME, KC_PGDN, KC_PGUP,   KC_END,  KC_KB_VOLUME_UP,
+        KC_LGUI,    KC_LALT,    KC_LSFT,    KC_LCTL,    KC_KB_VOLUME_DOWN,   KC_LEFT, KC_DOWN, KC_UP,     KC_RGHT, KC_KB_VOLUME_DOWN,
+        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_KB_MUTE,          KC_PSCR, KC_NO,   KC_NO,     KC_NO,   KC_KB_MUTE,
                                 KC_ESC,     KC_SPC,     KC_TAB,              KC_ENT,  KC_BSPC, KC_DEL
     ),
 
     [FUN] = LAYOUT_split_3x5_3(
-        KC_NO,      KC_NO,      NO_AE,       NO_OE,       KC_NO,          KC_NO,  KC_F7, KC_F8, KC_F9, KC_F10,
+        KC_NO,      KC_NO,      NO_AE,       NO_OO,       KC_NO,          KC_NO,  KC_F7, KC_F8, KC_F9, KC_F10,
         NO_AA,      KC_NO,      CTRL_MINUS, CTRL_PLUS,    LALT(KC_F4),    KC_NO,  KC_F4, KC_F5, KC_F6, KC_F11,
         KC_NO,      KC_NO,      KC_NO,       KC_NO,       UC_NEXT,        KC_NO,  KC_F1, KC_F2, KC_F3, KC_F12,
                                 KC_ESC,      KC_SPC,      KC_TAB,         KC_ENT, KC_BSPC, KC_DEL
