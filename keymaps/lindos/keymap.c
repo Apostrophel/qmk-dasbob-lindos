@@ -82,22 +82,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING("$");
             }
             return false;
-        // case NO_AE:
-        //     if (record->event.pressed) {
-        //         send_unicode_string(get_mods() & MOD_MASK_SHIFT ? "Æ" : "æ");
-        //     }
-        //     return false;
-        // case NO_OE:
-        //     if (record->event.pressed){
-        //         send_unicode_string(get_mods() & MOD_MASK_SHIFT ? "Ø" : "ø");
-        //
-        //     }
-        //     return false;
-        // case NO_AA:
-        //     if (record->event.pressed){
-        //         send_unicode_string(get_mods() & MOD_MASK_SHIFT ? "Å" : "å");
-        //     }
-        //     return false;
         case CTRL_PLUS:
             if (record->event.pressed) {
                 SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_EQUAL)))); // Ctrl + Shift + =
@@ -150,6 +134,8 @@ const uint16_t PROGMEM double_quote[] = {S_D, C_F, COMBO_END};
 const uint16_t PROGMEM single_quote[] = {C_J, S_K, COMBO_END};
 const uint16_t PROGMEM forward_slash[] = {G_A, C_F, COMBO_END};
 const uint16_t PROGMEM back_slash[] = {C_J, SYM_COLN, COMBO_END};
+const uint16_t PROGMEM less_than[] = {KC_Q, KC_R, COMBO_END};
+const uint16_t PROGMEM greater_than[] = {KC_U, KC_P, COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(open_parentasis, SYM_LPRN),
@@ -161,7 +147,9 @@ combo_t key_combos[] = {
     COMBO(double_quote, SYM_DQUO),
     COMBO(single_quote, SYM_QUOT),
     COMBO(back_slash, SYM_BSLS),
-    COMBO(forward_slash, SYM_SLSH)
+    COMBO(forward_slash, SYM_SLSH),
+    COMBO(less_than, SYM_LT),
+    COMBO(greater_than, SYM_GT)
 };
 
 const key_override_t colon_to_semi = ko_make_basic(MOD_MASK_SHIFT, SYM_COLN, SYM_SCLN);
@@ -229,11 +217,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /*
   *   ┌───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┐
-  *   │ @ │ ~ │ | │ ^ │ < │       │ > │ 7 │ 8 │ 9 │ ` │
+  *   │ @ │ ~ │ | │ ^ │ < │       │BCP│ 7 │ 8 │ 9 │ ` │
   *   ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
   *   │ # │ % │ - │ + │ = │       │ 0 │ 4 │ 5 │ 6 │ $ │
   *   ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
-  *   │c.w│ & │ ? │ ! │ * │       │ . │ 1 │ 2 │ 3 │ , │
+  *   │c.w│ & │ ? │ ! │ * │       │ , │ 1 │ 2 │ 3 │ . │
   *   └───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┘
   *             ┌───┐                   ┌───┐
   *             │FUN├───┐           ┌───┤FUN│
@@ -242,15 +230,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                     └───┘   └───┘
   */
     [SYM] = LAYOUT_split_3x5_3(
-       SYM_AT,   SYM_TILD, SYM_PIPE, SYM_CIRC, SYM_LT,         SYM_GT,     KC_7,       KC_8,   KC_9,   SYM_GRV,
+       SYM_AT,   SYM_TILD, SYM_PIPE, SYM_CIRC, KC_NO,          KC_BSPC,    KC_7,       KC_8,   KC_9,   SYM_GRV,
        SYM_HASH, SYM_PERC, SYM_MINS, SYM_PLUS, SYM_EQL,        KC_0,       C_4,        S_5,    A_6,    SYM_DLR,
-       CW_TOGG,  SYM_AMPR, SYM_QUES, SYM_EXLM, SYM_ASTR,       SYM_DOT,    KC_1,       KC_2,   KC_3,   SYM_COMM,
+       CW_TOGG,  SYM_AMPR, SYM_QUES, SYM_EXLM, SYM_ASTR,       SYM_COMM,   KC_1,       KC_2,   KC_3,   SYM_DOT,
                             KC_ESC,  KC_SPC,   KC_TAB,         KC_ENT,     KC_BSPC,    KC_DEL
     ),
     [NAV] = LAYOUT_split_3x5_3(
-        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_KB_VOLUME_UP,     KC_HOME, KC_PGDN, KC_PGUP,   KC_END,  KC_KB_VOLUME_UP,
-        KC_LGUI,    KC_LALT,    KC_LSFT,    KC_LCTL,    KC_KB_VOLUME_DOWN,   KC_LEFT, KC_DOWN, KC_UP,     KC_RGHT, KC_KB_VOLUME_DOWN,
-        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_KB_MUTE,          KC_PSCR, KC_NO,   KC_NO,     KC_NO,   KC_KB_MUTE,
+        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_KB_VOLUME_UP,     KC_HOME, KC_PGDN, KC_PGUP,   KC_END,  KC_AUDIO_VOL_UP,
+        KC_LGUI,    KC_LALT,    KC_LSFT,    KC_LCTL,    KC_KB_VOLUME_DOWN,   KC_LEFT, KC_DOWN, KC_UP,     KC_RGHT, KC_AUDIO_VOL_DOWN,
+        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_KB_MUTE,          KC_PSCR, KC_NO,   KC_NO,     KC_MEDIA_PLAY_PAUSE,   KC_AUDIO_MUTE,
                                 KC_ESC,     KC_SPC,     KC_TAB,              KC_ENT,  KC_BSPC, KC_DEL
     ),
 
