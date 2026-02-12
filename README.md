@@ -24,6 +24,14 @@ Now you can enter bootloader mode with the keyboard (double press reset button) 
 A few difficulties arise from the many combinations of hold-tap, combos and layers being on top of each other. The most annoying of which is the CTRL+Plus key combination that normally zoom in or increase the font of any active program. In the layout presented here, to be able to press both the CTRL key and the pluss-key at the same time, the SYM-layer has to be activated (adding a third button in the mix). For some reason this just doesn't work as currently defined. Even adding a dedicated macro for this CTRL+Plus on the FUN-layer has no effect. 
 Other problems lie in the definition of the numpad on the SYM-layer. Typing numbers with zero, commas, and periods are cumbersome, and especially so if a mistake is typed. Since the backspace button is being held by the thumb when the numpad layer is active. Not sure how to solve this limitation. 
 
+#### Full list
+| Short name | Description |
+|-----------|--------|
+| CTRL+PLUS | In no variation of attemps does CTRL+plus commands work |
+| Numpad    | Numpad has a cumbersome layout, especially for deletion |
+| Tilde (NO}| Since switching to a norwegian layout, the tilde button has a one-press-delay. Meaning I have to press it once, and then some other key before the ~ sign appears.|
+
+
 ## Layout
 This layout uses home row mods in the GASC (GUI, ALT, Shift, Control) order, Mod-tap for the three thumb cluster buttons, and combos for various brackets.
 Its a pretty efficient layout (for me), minimising number of layers to keep track of. I have also designed all layer functionality for activly holding the 
